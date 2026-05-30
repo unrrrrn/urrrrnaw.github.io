@@ -1,0 +1,230 @@
+<script src="" /><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>The Gateway</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Spider background pattern */
+        body::before {
+            content: "🕷️";
+            font-size: 180px;
+            color: rgba(50, 50, 50, 0.15);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1;
+            pointer-events: none;
+            text-shadow: 0 0 10px black;
+        }
+
+        .spider-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.2;
+            font-size: 40px;
+            word-break: break-all;
+            text-align: center;
+            pointer-events: none;
+            color: #2a2a2a;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spider-bg span {
+            margin: 20px;
+        }
+
+        .login-box {
+            background-color: rgba(0, 0, 0, 0.85);
+            border: 1px solid #1f3b1f;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+            padding: 40px 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(3px);
+            border-radius: 12px;
+        }
+
+        .login-box h2 {
+            color: #1f9e1f;
+            font-size: 22px;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            font-weight: normal;
+            text-transform: uppercase;
+        }
+
+        .login-box p {
+            color: #72b872;
+            font-size: 13px;
+            margin-bottom: 30px;
+            border-bottom: 1px dashed #1f3b1f;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background-color: #111;
+            border: 1px solid #1f9e1f;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        button {
+            background: none;
+            border: 1px solid #1f9e1f;
+            color: #1f9e1f;
+            padding: 10px 20px;
+            font-family: monospace;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            border-radius: 6px;
+        }
+
+        button:hover {
+            background-color: #1f9e1f20;
+            box-shadow: 0 0 8px #1f9e1f;
+        }
+
+        .error-msg {
+            color: #aa4444;
+            font-size: 12px;
+            margin-top: 15px;
+            min-height: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .content-box {
+            background-color: #0b0f0b;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #1f3b1f;
+            max-width: 500px;
+            text-align: left;
+            z-index: 10;
+            position: relative;
+        }
+
+        .content-box h3 {
+            color: #1f9e1f;
+            margin-bottom: 15px;
+            border-left: 3px solid #1f9e1f;
+            padding-left: 12px;
+        }
+
+        .content-box p {
+            color: #a0c0a0;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .content-box a {
+            color: #0f0;
+            text-decoration: none;
+            border-bottom: 1px dotted #1f9e1f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="spider-bg">
+        <span>🕷️</span><span>🕸️</span><span>🕷️</span><span>🕸️</span><span>🕷️</span><span>🕸️</span><span>🕷️</span>
+    </div>
+
+    <!-- Login Panel -->
+    <div id="loginPanel" class="login-box">
+        <h2>THE GATEWAY</h2>
+        <p>ACCESS RESTRICTED</p>
+        <input type="text" id="accessCodeInput" placeholder="Enter Access Code">
+        <button onclick="checkTheCode()">VERIFY ACCESS</button>
+        <div id="errorArea" class="error-msg"></div>
+    </div>
+
+    <!-- Admin Page (you) -->
+    <div id="adminZone" class="content-box hidden">
+        <h3>Welcome, Overseer 🕷️</h3>
+        <p>You have entered the restricted zone. Encrypted coordinates will follow.<br>
+        <strong>Next task:</strong> Decrypt the dark site.<br>
+        <span style="font-size:12px; color:#3a6e3a;">Access logged. Time remaining: 6 days.</span></p>
+        <p><a href="#">Spider map updates coming soon...</a></p>
+    </div>
+
+    <!-- Member Page -->
+    <div id="memberZone" class="content-box hidden">
+        <h3>Welcome, Member 🕸️</h3>
+        <p>You are now in the outer web. First coordinates will be sent soon.<br>
+        <strong>Wait for the signal.</strong><br>
+        Do not share this link. Monitoring is active.</p>
+        <p><a href="#">Slow progress... but continue.</a></p>
+    </div>
+
+    <script>
+        function checkTheCode() {
+            const entered = document.getElementById('accessCodeInput').value.trim();
+            const adminPass = "Xh2QB";
+            const memberPass = "SR9qB";
+            const errorDiv = document.getElementById('errorArea');
+
+            errorDiv.innerHTML = "";
+
+            if (entered === adminPass) {
+                document.getElementById('loginPanel').classList.add('hidden');
+                document.getElementById('adminZone').classList.remove('hidden');
+            } 
+            else if (entered === memberPass) {
+                document.getElementById('loginPanel').classList.add('hidden');
+                document.getElementById('memberZone').classList.remove('hidden');
+            } 
+            else {
+                errorDiv.innerHTML = "❌ ACCESS DENIED. INVALID CODE.";
+                let inputBox = document.getElementById('accessCodeInput');
+                inputBox.style.border = "1px solid #aa4444";
+                setTimeout(() => { inputBox.style.border = "1px solid #1f9e1f"; }, 800);
+            }
+        }
+    </script>
+</body>
+</html>
